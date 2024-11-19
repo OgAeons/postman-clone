@@ -6,6 +6,7 @@ const queryParamsContainer = document.querySelector('[data-query-params]')
 const requestHeadersContainer = document.querySelector('[data-request-headers]')
 const keyValueTemplate = document.querySelector('[data-key-value-template]')
 const form = document.querySelector('[data-form]')
+const responseHeadersContainer = document.querySelector('[data-response-headers]')
 
 document.querySelector('[data-add-query-param-btn]').addEventListener('click', ()=> {
     queryParamsContainer.append(createKeyValuePair())
@@ -25,9 +26,25 @@ form.addEventListener('submit', e => {
         params: keyValuePairToObjects(queryParamsContainer),
         headers: keyValuePairToObjects(requestHeadersContainer)
     }).then(response => {
+        document.querySelector('[data-response-section]').classList.remove("d-none")
+        // updateResponseDetails(response)
+        // updateResponseEditor(response.data)
+        updateResponseHeaders(response.headers)
         console.log(response)
     })
 })
+
+function updateResponseHeaders(headers) {
+    responseHeadersContainer.innerHTML = ""
+    Object.entries(headers).forEach(([key, value]) => {
+        const keyElement = document.createElement('div')
+        keyElement.textContent = key
+        responseHeadersContainer.append(keyElement)
+        const valueElement = document.createElement('div')
+        valueElement.textContent = value
+        responseHeadersContainer.append(valueElement)
+    })
+}
 
 function createKeyValuePair() {
     const element = keyValueTemplate.content.cloneNode(true)
