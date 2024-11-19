@@ -18,6 +18,22 @@ document.querySelector('[data-add-request-header-btn]').addEventListener('click'
 queryParamsContainer.append(createKeyValuePair())
 requestHeadersContainer.append(createKeyValuePair())
 
+axios.interceptors.request.use(request => {
+    request.customData = request.customData || {}
+    request.customData.startTime = new Date().getTime()
+    return request
+})
+
+function updateEndTime(response) {
+    response.customData = response.customData || {}
+    response.customData.time = new Date().getTime() - response.config.customData.startTime
+    return response
+}
+
+axios.interceptors.response.use(updateEndTime, e => {
+    return Promise.reject(updateEndTime(e.response))
+})
+
 form.addEventListener('submit', e => {
     e.preventDefault()
     axios({
@@ -25,14 +41,20 @@ form.addEventListener('submit', e => {
         method: document.querySelector('[data-method]').value,
         params: keyValuePairToObjects(queryParamsContainer),
         headers: keyValuePairToObjects(requestHeadersContainer)
-    }).then(response => {
+    }).catch(e => e)
+    .then(response => {
         document.querySelector('[data-response-section]').classList.remove("d-none")
-        // updateResponseDetails(response)
+        updateResponseDetails(response)
         // updateResponseEditor(response.data)
         updateResponseHeaders(response.headers)
         console.log(response)
     })
 })
+
+function updateResponseDetails(response) {
+    document.querySelector('[data-status]').textContent = response.status
+    document.querySelector('[data-time]').textContent = response.customData.time
+}
 
 function updateResponseHeaders(headers) {
     responseHeadersContainer.innerHTML = ""
