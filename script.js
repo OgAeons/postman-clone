@@ -2,6 +2,7 @@ import "bootstrap"
 import "bootstrap/dist/css/bootstrap.min.css"
 import axios from "axios"
 import prettyBytes from "pretty-bytes"
+import Editor from "./Editor"
 
 const queryParamsContainer = document.querySelector('[data-query-params]')
 const requestHeadersContainer = document.querySelector('[data-request-headers]')
@@ -35,18 +36,24 @@ axios.interceptors.response.use(updateEndTime, e => {
     return Promise.reject(updateEndTime(e.response))
 })
 
+const { requestEditor, updateResponseEditor } = Editor()
+
 form.addEventListener('submit', e => {
     e.preventDefault()
     axios({
         url: document.querySelector('[data-url]').value,
         method: document.querySelector('[data-method]').value,
         params: keyValuePairToObjects(queryParamsContainer),
-        headers: keyValuePairToObjects(requestHeadersContainer)
+        headers: {
+            ...keyValuePairToObjects(requestHeadersContainer),
+            'Content-Type': 'application/json'
+        },
+        data: JSON.stringify(requestEditor.state.doc.toString())
     }).catch(e => e)
     .then(response => {
         document.querySelector('[data-response-section]').classList.remove("d-none")
         updateResponseDetails(response)
-        // updateResponseEditor(response.data)
+        updateResponseEditor(response.data)
         updateResponseHeaders(response.headers)
         console.log(response)
     })
