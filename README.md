@@ -11,13 +11,13 @@ A simple Postman clone built with Vite, Axios, and Codemirror. This tool allows 
 - **Axios for Requests**: Efficient handling of API calls.
 
 ## Installation
-1. Clone the repository: 
-    `git clone https://github.com/your-username/postman-clone.git `
-    `cd postman-clone `
-2. Install dependencies:
-    `npm install `
-3. Start the Development Server: 
-    `npm run dev `
+1. **Clone the Repository**  
+   `git clone https://github.com/OgAeons/postman-clone.git`  
+   `cd postman-clone`
+2. **Install Dependencies**  
+   `npm install`
+3. **Start the Development Server**  
+   `npm run dev`
 
 ## Usage
 1. **Enter a Request URL**  
