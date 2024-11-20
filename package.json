@@ -1,14 +1,16 @@
 {
-  "name": "postman",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "postman-clone",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "start": "snowpack dev"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "devDependencies": {
+    "vite": "^5.4.10"
+  },
   "dependencies": {
     "@codemirror/basic-setup": "^0.20.0",
     "@codemirror/commands": "^6.7.1",
@@ -17,8 +19,5 @@
     "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
     "pretty-bytes": "^6.1.1"
-  },
-  "devDependencies": {
-    "snowpack": "^3.2.2"
   }
 }
