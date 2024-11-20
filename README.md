@@ -12,4 +12,4 @@ npm i bootstrap
 
 npm i pretty-bytes
 
-npm i @codemirror/basic-setup @codemirror/commands @codemirror/view @codemirror/lang-json
+npm i codemirror @codemirror/commands @codemirror/view @codemirror/lang-json @codemirror/state
