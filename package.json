@@ -1,5 +1,5 @@
 {
-  "name": "postman-clone",
+  "name": "post",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -12,12 +12,13 @@
     "vite": "^5.4.10"
   },
   "dependencies": {
-    "@codemirror/basic-setup": "^0.20.0",
     "@codemirror/commands": "^6.7.1",
     "@codemirror/lang-json": "^6.0.1",
+    "@codemirror/state": "^6.4.1",
     "@codemirror/view": "^6.34.3",
     "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
+    "codemirror": "^6.0.1",
     "pretty-bytes": "^6.1.1"
   }
 }
